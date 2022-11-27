@@ -1,5 +1,5 @@
 import SearchBox from "../components/SearchBox";
-import React from "react";
+import React, {useState} from "react";
 import HexagonalIcon from '../../public/svg/hexagonal.svg';
 import styled from "styled-components";
 
@@ -7,11 +7,12 @@ export default function HomePage() {
     return (
         <>
             <MainWrapper>
-                <HexagonalLogo>
+                <HomeLogo>
                     <HexagonalIcon/>
-                </HexagonalLogo>
-                <SearchBox/>
-                <div>this is search home</div>
+                </HomeLogo>
+                <HomeSearchBox>
+                    <SearchBox/>
+                </HomeSearchBox>
             </MainWrapper>
         </>
     )
@@ -28,8 +29,13 @@ const MainWrapper = styled.div`
   z-index: 1;
 `
 
-const HexagonalLogo = styled.div`
+const HomeLogo = styled.div`
   width: 200px;
   height: 200px;
+  padding-top: 50px;
+`
+
+const HomeSearchBox = styled.div`
+    padding-top: 50px;
 `
 

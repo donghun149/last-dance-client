@@ -8,9 +8,6 @@ export default function Header() {
                 <Link href="/">
                     home
                 </Link>
-                <Link href="/about">
-                    about
-                </Link>
             </nav>
         </HeaderWrapper>
     )
@@ -23,5 +20,6 @@ const HeaderWrapper = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 100%;
+  height: 50px;
   justify-content: space-between;
 `

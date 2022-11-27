@@ -4,6 +4,7 @@ import {darkTheme, GlobalStyle, lightTheme} from "../styles/global-style";
 import Header from "../components/Header";
 import {useState} from "react";
 import styled, {ThemeProvider} from "styled-components";
+import {RecoilRoot} from "recoil";
 
 const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Component, pageProps}) => {
     const [isLightTheme, setIsLightTheme] = useState(true);
@@ -12,15 +13,17 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Componen
     };
 
     return <>
+        <RecoilRoot>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <GlobalStyle/>
             <Header/>
-            <button onClick={toggleTheme}>Switch Mode</button>
+            {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
             <Layout>
                 <Component {...pageProps} />
             </Layout>
         </ThemeProvider>
         <GlobalStyle/>
+        </RecoilRoot>
     </>
 }
 
