@@ -1,37 +1,35 @@
-import {useRouter} from "next/router";
-import React, {useEffect, useState} from "react";
-import userService, {UserResponse} from "../../apis/userService";
+import React from "react";
+import userService from "../../apis/userService";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 
-const UserPage = () => {
-    const router = useRouter()
-    const {id} = router.query
-
-    const [user, setUser] = useState<any>(null)
-
-    useEffect(()=> {
-        async function getUser() {
-            console.log(id)
-            // @ts-ignore
-            await userService.getUserByUserName(id.toString())
-                .then((response: any) => {
-                    console.log(response);
-                    setUser(response.data);
-                })
-                .catch((e: any) => {
-                    console.log(e);
-                });
-        }
-        getUser()
-    },[])
+const UserPage = ({userData}: InferGetServerSidePropsType<GetServerSideProps>) => {
+    console.log(userData)
 
     return (
         <div>
-            `this is {id} user page`
-            {user !== null && (
-                <div>{user.company}</div>
+            {userData !== null && (
+                <div>{userData.company}</div>
             )}
         </div>
     )
 }
 
 export default UserPage
+
+export type UsersQuery = {
+    id: string
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const usersQuery = context.query as UsersQuery
+    const id = usersQuery.id
+
+    let userData = {}
+    await userService.getUserByUserName((id || '').toString()).then(response => {
+        userData = response.data
+    })
+
+    return {
+        props: {userData}
+    }
+}

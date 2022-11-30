@@ -8,13 +8,11 @@ import {useRouter} from "next/router";
 const SearchBox: React.FC<ScriptProps> = () => {
     const [id, setID] = useRecoilState(idState)
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(id);
         setID(e.target.value);
     };
 
     const router = useRouter()
     const onSubmit = () => {
-        console.log(id);
         router.push(`/users/${id}`)
     };
 
