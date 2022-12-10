@@ -1,13 +1,15 @@
 import React from "react";
 import userService from "../../apis/userService";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import ProfileImage from "../../components/ProfileImage";
 
 const UserPage = ({userData}: InferGetServerSidePropsType<GetServerSideProps>) => {
     console.log(userData)
 
     return (
         <div>
-            {userData !== null && (
+            <ProfileImage url={userData.avatarUrl}/>
+            {(
                 <div>{userData.company}</div>
             )}
         </div>
@@ -20,13 +22,22 @@ export type UsersQuery = {
     id: string
 }
 
+export type UserData = {
+    avatarUrl: string
+    company: string
+}
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const usersQuery = context.query as UsersQuery
     const id = usersQuery.id
 
-    let userData = {}
+    let userData : UserData = {
+        avatarUrl : "empty",
+        company : "empty"
+    }
+
     await userService.getUserByUserName((id || '').toString()).then(response => {
-        userData = response.data
+        userData = response.data as UserData
     })
 
     return {
