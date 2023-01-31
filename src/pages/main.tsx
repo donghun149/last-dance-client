@@ -44,7 +44,7 @@ const Menu: React.FC<MenuProps> = ({title}) => {
         lineHeight: "26px",
         backgroundColor: "white",
         marginBottom: "20px",
-        paddingLeft: "10px",
+        paddingLeft: "20px",
         fontWeight: "bold",
         cursor: "pointer"
       }}>
