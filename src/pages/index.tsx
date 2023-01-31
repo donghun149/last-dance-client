@@ -1,21 +1,30 @@
 import SearchBox from "../components/SearchBox";
-import React, {useState} from "react";
+import React from "react";
 import HexagonalIcon from '../../public/svg/hexagonal.svg';
 import styled from "styled-components";
+import useCounter from "../hooks/useCounter";
 
 export default function HomePage() {
-    return (
-        <>
-            <MainWrapper>
-                <HomeLogo>
-                    <HexagonalIcon/>
-                </HomeLogo>
-                <HomeSearchBox>
-                    <SearchBox/>
-                </HomeSearchBox>
-            </MainWrapper>
-        </>
-    )
+  const {count, increment} = useCounter({initialCount: 7})
+
+  return (
+      <>
+        <MainWrapper>
+          <h1>
+            Count : {count}
+          </h1>
+          <button onClick={increment}>
+            Increment
+          </button>
+          <HomeLogo>
+            <HexagonalIcon/>
+          </HomeLogo>
+          <HomeSearchBox>
+            <SearchBox/>
+          </HomeSearchBox>
+        </MainWrapper>
+      </>
+  )
 }
 
 const MainWrapper = styled.div`

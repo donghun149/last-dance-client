@@ -7,24 +7,24 @@ import styled, {ThemeProvider} from "styled-components";
 import {RecoilRoot} from "recoil";
 
 const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Component, pageProps}) => {
-    const [isLightTheme, setIsLightTheme] = useState(true);
-    const toggleTheme = () => {
-        setIsLightTheme(!isLightTheme);
-    };
+  const [isLightTheme, setIsLightTheme] = useState(true);
+  const toggleTheme = () => {
+    setIsLightTheme(!isLightTheme);
+  };
 
-    return <>
-        <RecoilRoot>
-        <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-            <GlobalStyle/>
-            <Header/>
-            {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </ThemeProvider>
+  return <>
+    <RecoilRoot>
+      <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
         <GlobalStyle/>
-        </RecoilRoot>
-    </>
+        {/*<Header/>*/}
+        {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+      <GlobalStyle/>
+    </RecoilRoot>
+  </>
 }
 
 const Layout = styled.div`
@@ -34,13 +34,13 @@ const Layout = styled.div`
 
 
 App.getInitialProps = async ({Component, ctx}: AppContext): Promise<AppInitialProps> => {
-    let pageProps = {};
+  let pageProps = {};
 
-    if (Component.getInitialProps) {
-        pageProps = await Component.getInitialProps(ctx);
-    }
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
 
-    return {pageProps};
+  return {pageProps};
 }
 
 export default App;
