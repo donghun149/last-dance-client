@@ -1,11 +1,29 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import userService from "../apis/userService";
 
 interface Props {
 }
 
 const LoginPage: React.FC<Props> = () => {
-  const [content, setContent] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [submit, setSubmit] = useState(false)
+
+  useEffect(() => {
+    if (!submit) return
+    userService.login({email: email, password: password}
+    ).then(response => {
+      console.log(response)
+      const token = response.data as string
+      console.log(token)
+    })
+  }, [submit])
+
+  const handleSubmit = () => {
+    setSubmit(true)
+  }
+
   return (
       <div style={{
         display: "flex",
@@ -16,7 +34,9 @@ const LoginPage: React.FC<Props> = () => {
         justifyContent: "center"
       }}>
         <Title content="COMPANY"/>
-        <InputAndButton value={content} placeHolder="이메일 혹은 코드를 입력하세요" onChange={setContent}/>
+        <InputAndButton value={email} placeHolder="이메일을 입력하세요" onChange={setEmail}/>
+        <InputAndButton value={password} placeHolder="패스워드를 입력하세요" onChange={setPassword}/>
+        <button onClick={handleSubmit}>제출</button>
       </div>
   );
 };
