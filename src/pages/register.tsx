@@ -1,31 +1,26 @@
 import React, {useEffect, useState} from "react";
-import {useRouter} from "next/router";
 import userService from "../apis/userService";
-import {useRecoilState} from "recoil";
-import {tokenState} from "../states/states";
+import {useRouter} from "next/router";
 
 interface Props {
 }
 
-const LoginPage: React.FC<Props> = () => {
+const RegisterPage: React.FC<Props> = () => {
   const [email, setEmail] = useState("")
+  const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [submit, setSubmit] = useState(false)
-
-  const [token, setToken] = useRecoilState(tokenState)
   const router = useRouter()
 
   useEffect(() => {
     if (!submit) return
-    userService.login({email: email, password: password}
-    ).then(data => {
-      const jwt = data as string
-
-      setToken(jwt)
-      alert(`토큰이 발급되었습니다. ${jwt}`)
-      router.push(`/`)
-    }).catch(e => {
-      alert(`로그인에 실패했습니다.`)
+    userService.register({
+      email: email,
+      name: name,
+      password: password
+    }).then(() => {
+      router.push(`/login`)
+    }).catch(() => {
       setSubmit(false)
     })
   }, [submit])
@@ -44,11 +39,12 @@ const LoginPage: React.FC<Props> = () => {
         justifyContent: "center"
       }}>
         <Title content="COMPANY"/>
-        <SubTitle content="로그인"/>
+        <SubTitle content="회원가입"/>
         <InputForm value={email} placeHolder="이메일을 입력하세요" onChange={setEmail}/>
+        <InputForm value={name} placeHolder="이름을 입력하세요" onChange={setName}/>
         <InputForm value={password} placeHolder="패스워드를 입력하세요" type="password"
                    onChange={setPassword}/>
-        <LoginButton onClick={handleSubmit}/>
+        <RegisterButton onClick={handleSubmit}/>
       </div>
   );
 };
@@ -115,11 +111,11 @@ const InputForm: React.FC<InputFormProps> = ({value, placeHolder, type, onChange
   )
 }
 
-interface LoginButton {
+interface RegisterButtonProps {
   onClick: () => void
 }
 
-const LoginButton: React.FC<LoginButton> = ({onClick}) => {
+const RegisterButton: React.FC<RegisterButtonProps> = ({onClick}) => {
   return (
       <button
           onClick={onClick}
@@ -132,15 +128,9 @@ const LoginButton: React.FC<LoginButton> = ({onClick}) => {
             color: "blue"
           }}
       >
-        시작하기
+        등록하기
       </button>
   )
 }
 
-interface InputAndButtonProps {
-  value: string
-  placeHolder: string
-  onChange: (value: string) => void
-}
-
-export default LoginPage;
+export default RegisterPage;

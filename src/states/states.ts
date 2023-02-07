@@ -1,8 +1,13 @@
 import {atom} from "recoil";
 
 const idState = atom({
-    key: 'idState',
-    default: '',
+  key: 'idState',
+  default: '',
 })
 
-export {idState};
+const tokenState = atom({
+  key: 'token',
+  default: '',
+})
+
+export {idState, tokenState};
