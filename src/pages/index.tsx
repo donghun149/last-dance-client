@@ -1,50 +1,40 @@
+import React, {useState} from 'react';
+import styled from 'styled-components';
 import SearchBox from "../components/SearchBox";
-import React from "react";
-import HexagonalIcon from '../../public/svg/hexagonal.svg';
-import styled from "styled-components";
-import useCounter from "../hooks/useCounter";
 
-export default function HomePage() {
-  const {count, increment} = useCounter({initialCount: 7})
-
-  return (
-      <>
-        <MainWrapper>
-          <h1>
-            Count : {count}
-          </h1>
-          <button onClick={increment}>
-            Increment
-          </button>
-          <HomeLogo>
-            <HexagonalIcon/>
-          </HomeLogo>
-          <HomeSearchBox>
-            <SearchBox/>
-          </HomeSearchBox>
-        </MainWrapper>
-      </>
-  )
-}
-
-const MainWrapper = styled.div`
-  align-items: center;
+const Root = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--ntp-one-google-bar-height));
-  min-width: fit-content;
-  padding-top: var(--ntp-one-google-bar-height);
-  position: relative;
-  z-index: 1;
-`
+  align-items: center;
+  justify-content: center;
+`;
 
-const HomeLogo = styled.div`
-  width: 200px;
-  height: 200px;
-  padding-top: 50px;
-`
+const Image = styled.img`
+  width: 300px;
+  margin-bottom: 40px;
 
-const HomeSearchBox = styled.div`
-    padding-top: 50px;
-`
+  @media (max-width: 500px) {
+    width: 60%;
+  }
+`;
 
+const GoogleSearch: React.FC = () => {
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      console.log(`Searching for "${searchText}"`);
+    }
+  };
+
+  return (
+      <Root>
+        <Image src="/images/logo.jpeg" alt="Logo"/>
+        <SearchBox value={searchText} onChange={(event) => setSearchText(event.target.value)}
+                   onKeyDown={handleSearch}/>
+      </Root>
+  );
+};
+
+export default GoogleSearch;
