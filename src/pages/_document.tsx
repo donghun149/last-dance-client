@@ -34,7 +34,7 @@ export default class CustomDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <title>hexagonal</title>
+                    <title>HumanZip</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width"/>
                 </Head>
                 <body>

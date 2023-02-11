@@ -1,10 +1,10 @@
 import {NextComponentType} from "next"
 import {AppContext, AppInitialProps, AppProps} from "next/app";
 import {darkTheme, GlobalStyle, lightTheme} from "../styles/global-style";
-import Header from "../components/Header";
 import {useState} from "react";
 import styled, {ThemeProvider} from "styled-components";
 import {RecoilRoot} from "recoil";
+import Navigation from "../components/Navigation";
 
 const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Component, pageProps}) => {
   const [isLightTheme, setIsLightTheme] = useState(true);
@@ -12,10 +12,17 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Componen
     setIsLightTheme(!isLightTheme);
   };
 
-  return <>
+  return <div
+      style={{
+        minHeight: "100vh",
+        maxHeight: "100vh",
+        overflow: "hidden"
+      }}
+  >
     <RecoilRoot>
       <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
         <GlobalStyle/>
+        <Navigation/>
         {/*<Header/>*/}
         {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
         <Layout>
@@ -24,7 +31,7 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Componen
       </ThemeProvider>
       <GlobalStyle/>
     </RecoilRoot>
-  </>
+  </div>
 }
 
 const Layout = styled.div`
