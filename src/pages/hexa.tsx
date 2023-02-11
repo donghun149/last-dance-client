@@ -1,4 +1,3 @@
-import SearchBox from "../components/SearchBox";
 import React from "react";
 import HexagonalIcon from '../../public/svg/hexagonal.svg';
 import styled from "styled-components";
@@ -14,7 +13,6 @@ export default function HomePage() {
             <HexagonalIcon/>
           </HomeLogo>
           <HomeSearchBox>
-            <SearchBox/>
           </HomeSearchBox>
         </MainWrapper>
       </>
