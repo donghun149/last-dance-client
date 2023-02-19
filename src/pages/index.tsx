@@ -1,6 +1,35 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import SearchBox from "../components/SearchBox";
+import {useRouter} from "next/router";
+
+const GoogleSearch: React.FC = () => {
+  const router = useRouter()
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      console.log(`Searching for "${searchText}"`);
+      handleSubmit()
+    }
+  };
+
+  const handleSubmit = () => {
+    router.push(`/humans/${searchText}`)
+  }
+
+  return (
+      <Root>
+        <Image src="/images/logo.jpeg" alt="Logo"/>
+        <SearchBox
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+            onClick={handleSubmit}
+            onKeyDown={handleSearch}
+        />
+      </Root>
+  );
+};
 
 const Root = styled.div`
   height: 100vh;
@@ -18,23 +47,5 @@ const Image = styled.img`
     width: 60%;
   }
 `;
-
-const GoogleSearch: React.FC = () => {
-  const [searchText, setSearchText] = useState('');
-
-  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      console.log(`Searching for "${searchText}"`);
-    }
-  };
-
-  return (
-      <Root>
-        <Image src="/images/logo.jpeg" alt="Logo"/>
-        <SearchBox value={searchText} onChange={(event) => setSearchText(event.target.value)}
-                   onKeyDown={handleSearch}/>
-      </Root>
-  );
-};
 
 export default GoogleSearch;

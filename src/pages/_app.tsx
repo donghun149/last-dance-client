@@ -12,26 +12,22 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Componen
     setIsLightTheme(!isLightTheme);
   };
 
-  return <div
-      style={{
-        minHeight: "100vh",
-        maxHeight: "100vh",
-        overflow: "hidden"
-      }}
-  >
-    <RecoilRoot>
-      <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-        <GlobalStyle/>
-        <Navigation/>
-        {/*<Header/>*/}
-        {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-      <GlobalStyle/>
-    </RecoilRoot>
-  </div>
+  return (
+      <div>
+        <RecoilRoot>
+          <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
+            <GlobalStyle/>
+            <Navigation/>
+            {/*<Header/>*/}
+            {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+          <GlobalStyle/>
+        </RecoilRoot>
+      </div>
+  )
 }
 
 const Layout = styled.div`

@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler} from "react";
+import React, {ChangeEventHandler, MouseEventHandler} from "react";
 import styled from "styled-components";
 import {Search} from "@mui/icons-material";
 
@@ -33,11 +33,12 @@ const Input = styled.input`
 interface SearchBoxProps {
   value: string,
   onChange: ChangeEventHandler<HTMLInputElement> | undefined;
+  onClick: MouseEventHandler<any> | undefined
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-const SearchBox : React.FC<SearchBoxProps> = (
-    { value, onChange, onKeyDown}
+const SearchBox: React.FC<SearchBoxProps> = (
+    {value, onChange, onClick, onKeyDown}
 ) => {
   return <SearchContainer>
     <Input
@@ -47,7 +48,7 @@ const SearchBox : React.FC<SearchBoxProps> = (
         onChange={onChange}
         onKeyDown={onKeyDown}
     />
-    <SearchIcon/>
+    <SearchIcon onClick={onClick}/>
   </SearchContainer>;
 }
 
