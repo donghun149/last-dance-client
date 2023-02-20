@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/router";
 import userService from "../apis/userService";
 import {useRecoilState} from "recoil";
 import {tokenState} from "../states/states";
+import {setTokenToLocalStorage} from "../utils/TokenUtils";
 
 interface Props {
 }
@@ -10,28 +11,22 @@ interface Props {
 const LoginPage: React.FC<Props> = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [submit, setSubmit] = useState(false)
 
   const [token, setToken] = useRecoilState(tokenState)
   const router = useRouter()
 
-  useEffect(() => {
-    if (!submit) return
+  const handleSubmit = () => {
     userService.login({email: email, password: password}
     ).then(data => {
       const jwt = data as string
-
       setToken(jwt)
-      alert(`토큰이 발급되었습니다. ${jwt}`)
+      setTokenToLocalStorage(jwt)
       router.push(`/`)
     }).catch(e => {
+      setEmail("")
+      setPassword("")
       alert(`로그인에 실패했습니다.`)
-      setSubmit(false)
     })
-  }, [submit])
-
-  const handleSubmit = () => {
-    setSubmit(true)
   }
 
   return (
@@ -43,9 +38,9 @@ const LoginPage: React.FC<Props> = () => {
         minHeight: "100vh",
         justifyContent: "center"
       }}>
-        <Title content="COMPANY"/>
-        <SubTitle content="로그인"/>
-        <InputForm value={email} placeHolder="이메일을 입력하세요" onChange={setEmail}/>
+        <Title content="HumanZip"/>
+        <SubTitle content="Login"/>
+        <InputForm value={email} placeHolder="이메일을 입력하세요" onChange={setEmail} type="email"/>
         <InputForm value={password} placeHolder="패스워드를 입력하세요" type="password"
                    onChange={setPassword}/>
         <LoginButton onClick={handleSubmit}/>
@@ -94,11 +89,8 @@ interface InputFormProps {
 }
 
 const InputForm: React.FC<InputFormProps> = ({value, placeHolder, type, onChange}) => {
-  const [content, setContent] = useState("")
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
-    setContent(inputValue)
     onChange(inputValue)
   }
 
@@ -108,7 +100,7 @@ const InputForm: React.FC<InputFormProps> = ({value, placeHolder, type, onChange
             style={{padding: "5px", width: "80%"}}
             placeholder={placeHolder}
             onChange={handleChange}
-            value={content}
+            value={value}
             type={type}
         />
       </div>
@@ -129,7 +121,7 @@ const LoginButton: React.FC<LoginButton> = ({onClick}) => {
             textAlign: "center",
             fontSize: "20px",
             fontWeight: "bold",
-            color: "blue"
+            color: "black"
           }}
       >
         시작하기

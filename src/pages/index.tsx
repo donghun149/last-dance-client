@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchBox from "../components/SearchBox";
 import {useRouter} from "next/router";
 
-const GoogleSearch: React.FC = () => {
+const IndexPage: React.FC = () => {
   const router = useRouter()
   const [searchText, setSearchText] = useState('');
 
@@ -48,4 +48,4 @@ const Image = styled.img`
   }
 `;
 
-export default GoogleSearch;
+export default IndexPage;

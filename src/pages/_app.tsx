@@ -18,7 +18,6 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({Componen
           <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <GlobalStyle/>
             <Navigation/>
-            {/*<Header/>*/}
             {/*<button onClick={toggleTheme}>Switch Mode</button>*/}
             <Layout>
               <Component {...pageProps} />
