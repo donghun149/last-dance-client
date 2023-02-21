@@ -21,12 +21,26 @@ export type LoginRequest = {
 }
 export type LoginResponse = {}
 
+export type GetUserByNicknameRequest = {
+  nickname: string
+}
+export type GetUserByNicknameResponse = {
+  email: string | '',
+  nickname: string | '',
+}
+
+export type GetIsOwnRequest = {
+  email: string,
+  token: string,
+}
+
 class UserService {
   async register(request: RegisterRequest) {
     try {
       await httpClient.post<RegisterResponse>(`/register`, request)
     } catch (error) {
       console.error(error)
+      throw error
     }
   }
 
@@ -35,6 +49,33 @@ class UserService {
       const response = await httpClient.post<LoginResponse>(`/login`, request)
 
       return response.data
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async getUserByNickname(request: GetUserByNicknameRequest) {
+    try {
+      const response = await httpClient.get<GetUserByNicknameResponse>(`/api/v1/users/${request.nickname}`, {})
+
+      return response.data as GetUserByNicknameResponse
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async getIsOwn(request: GetIsOwnRequest) {
+    try {
+      const response =
+          await httpClient.get<boolean>(`/api/v1/users/check/${request.email}`, {
+            headers: {
+              token: request.token
+            }
+          })
+
+      return response.data as boolean
     } catch (error) {
       console.error(error)
       throw error

@@ -8,6 +8,7 @@ import {
 } from "../utils/TokenUtils";
 import {useRecoilState} from "recoil";
 import {tokenState} from "../states/states";
+import LogoSvg from '../../public/svg/logo.svg';
 
 const Navigation: React.FC = () => {
   const [isHidden, setIsHidden] = useState(false);
@@ -47,19 +48,27 @@ const Navigation: React.FC = () => {
     router.push('/login')
   }
 
+  const goHome = () => {
+    router.push('/')
+  }
+
   return (
       <NavigationContainer className={isHidden ? 'hidden' : ''}>
-        <NavigationLeft></NavigationLeft>
+        <NavigationLeft>
+          <Logo onClick={goHome}>
+            <LogoSvg style={{width: "30px", height: "30px"}}/>
+          </Logo>
+        </NavigationLeft>
         <NavigationRight>
           {isLogin ?
               (
-                  <LoginButton onClick={handleLogout}>
-                    Logout
-                  </LoginButton>
+                  <LogoutButton onClick={handleLogout}>
+                    로그아웃
+                  </LogoutButton>
               ) :
               (
                   <LoginButton onClick={handleClick}>
-                    Login
+                    로그인
                   </LoginButton>
               )
           }
@@ -69,7 +78,7 @@ const Navigation: React.FC = () => {
 };
 
 const NavigationContainer = styled.div`
-  height: 60px;
+  height: 50px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -89,17 +98,54 @@ const NavigationContainer = styled.div`
 `;
 
 const NavigationLeft = styled.div`
-  padding-left: 50px;
+  padding-left: 100px;
+  
+  @media (max-width: 500px) {
+    padding-left: 30px;
+  }
+`
+
+const Logo = styled.div`
+  cursor: pointer;
+  width: 40px;
 `
 
 const NavigationRight = styled.div`
-  padding-right: 50px;
+  padding-right: 100px;
+
+  @media (max-width: 500px) {
+    padding-right: 30px;
+  }
 `
 
 const LoginButton = styled.button`
-  padding-right: 50px;
-  font-size: 15px;
   cursor: pointer;
+  padding: 4px 16px;
+  font-size: 12px;
+  font-weight: normal;
+  border-radius: 4px;
+  border: 30px;
+  word-break: keep-all;
+  background: rgb(33, 37, 41);
+  color: rgb(255, 255, 255);
+  transition: all 0.125s ease-in 0s;
+  box-sizing: border-box;
+  line-height: 18px;
+`
+
+const LogoutButton = styled.button`
+  cursor: pointer;
+  padding: 4px 16px;
+  font-size: 12px;
+  font-weight: normal;
+  border-radius: 4px;
+  border: 30px;
+  word-break: keep-all;
+  background: rgb(33, 37, 41);
+  color: rgb(255, 255, 255);
+  transition: all 0.125s ease-in 0s;
+  box-sizing: border-box;
+  line-height: 18px;
 `
 
 export default Navigation;

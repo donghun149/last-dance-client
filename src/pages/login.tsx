@@ -4,6 +4,7 @@ import userService from "../apis/userService";
 import {useRecoilState} from "recoil";
 import {tokenState} from "../states/states";
 import {setTokenToLocalStorage} from "../utils/TokenUtils";
+import styled from "styled-components";
 
 interface Props {
 }
@@ -15,7 +16,9 @@ const LoginPage: React.FC<Props> = () => {
   const [token, setToken] = useRecoilState(tokenState)
   const router = useRouter()
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
     userService.login({email: email, password: password}
     ).then(data => {
       const jwt = data as string
@@ -29,24 +32,43 @@ const LoginPage: React.FC<Props> = () => {
     })
   }
 
+  const goRegister = () => {
+    router.push(`/register`)
+  }
+
   return (
-      <div style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "1000px",
-        margin: "0 auto",
-        minHeight: "100vh",
-        justifyContent: "center"
-      }}>
-        <Title content="HumanZip"/>
-        <SubTitle content="Login"/>
-        <InputForm value={email} placeHolder="이메일을 입력하세요" onChange={setEmail} type="email"/>
-        <InputForm value={password} placeHolder="패스워드를 입력하세요" type="password"
-                   onChange={setPassword}/>
-        <LoginButton onClick={handleSubmit}/>
-      </div>
+      <Root>
+        <Content>
+          <Title content="로그인"/>
+          <form onSubmit={handleSubmit}>
+            <InputFormWrap>
+              <InputForm value={email} placeHolder="이메일을 입력하세요" onChange={setEmail} type="email"/>
+              <InputForm value={password} placeHolder="패스워드를 입력하세요" type="password"
+                         onChange={setPassword}/>
+            </InputFormWrap>
+            <LoginButton/>
+          </form>
+          <RegisterDescription>
+            아직 회원이 아니신가요? <RegisterButton onClick={goRegister}>회원가입</RegisterButton>
+          </RegisterDescription>
+        </Content>
+      </Root>
   );
 };
+
+const RegisterDescription = styled.div`
+  margin: 0 auto;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #757575;
+`
+
+const RegisterButton = styled.span`
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+`
 
 interface TitleProps {
   content: string;
@@ -57,26 +79,6 @@ const Title: React.FC<TitleProps> = ({content}) => {
       <div
           style={{margin: "0 auto", textAlign: "center"}}>
         <h1 style={{fontSize: "50px", fontWeight: "bold"}}>{content}</h1>
-      </div>
-  )
-}
-
-interface SubTitleProps {
-  content: string;
-}
-
-const SubTitle: React.FC<SubTitleProps> = ({content}) => {
-  return (
-      <div
-          style={{
-            margin: "0 auto",
-            minWidth: "400px",
-            marginTop: "90px",
-            marginBottom: "20px",
-            textAlign: "center"
-          }}
-      >
-        <h1 style={{fontSize: "30px", fontWeight: "bold"}}>{content}</h1>
       </div>
   )
 }
@@ -94,40 +96,100 @@ const InputForm: React.FC<InputFormProps> = ({value, placeHolder, type, onChange
     onChange(inputValue)
   }
 
+  let autoCompleteType = type
+  if (type === "password") {
+    autoCompleteType = "current-password"
+  }
+
   return (
-      <div style={{margin: "0 auto", marginTop: "10px", minWidth: "400px", textAlign: "center"}}>
-        <input
-            style={{padding: "5px", width: "80%"}}
+      <InputWrap>
+        <Input
             placeholder={placeHolder}
             onChange={handleChange}
             value={value}
             type={type}
+            autoComplete={autoCompleteType}
         />
-      </div>
+      </InputWrap>
   )
 }
+
+const InputWrap = styled.div`
+  width: 100%;
+  margin-top: 10px;
+  outline: none;
+  border: 1px solid gainsboro;
+`
+
+const Input = styled.input`
+  padding: 10px;
+  width: 100%;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+`
+
+const InputFormWrap = styled.div`
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 30px;
+  text-align: center;
+
+  @media (max-width: 400px) {
+    width: 90%;
+  }
+`;
+
+const Root = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Content = styled.div`
+  padding-top: 30px;
+  width: 800px;
+  margin: 0 auto;
+  @media (max-width: 400px) {
+    width: 90%;
+  }
+`;
 
 interface LoginButton {
-  onClick: () => void
 }
 
-const LoginButton: React.FC<LoginButton> = ({onClick}) => {
+const LoginButton: React.FC<LoginButton> = ({}) => {
   return (
-      <button
-          onClick={onClick}
-          style={{
-            margin: "0 auto",
-            marginTop: "30px",
-            textAlign: "center",
-            fontSize: "20px",
-            fontWeight: "bold",
-            color: "black"
-          }}
-      >
-        시작하기
-      </button>
+      <LoginButtonWrapper>
+        <LoginButtonWrap type="submit">
+          시작하기
+        </LoginButtonWrap>
+      </LoginButtonWrapper>
   )
 }
+const LoginButtonWrapper = styled.div`
+  width: 90px;
+  margin: 0 auto;
+  margin-top: 20px;
+`
+const LoginButtonWrap = styled.button`
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  padding: 4px 16px;
+  font-size: 15px;
+  font-weight: normal;
+  border-radius: 4px;
+  border: 30px;
+  word-break: keep-all;
+  background: rgb(33, 37, 41);
+  color: rgb(255, 255, 255);
+  transition: all 0.125s ease-in 0s;
+  box-sizing: border-box;
+  line-height: 30px;
+`
 
 interface InputAndButtonProps {
   value: string

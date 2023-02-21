@@ -9,7 +9,6 @@ const IndexPage: React.FC = () => {
 
   const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      console.log(`Searching for "${searchText}"`);
       handleSubmit()
     }
   };
@@ -20,7 +19,7 @@ const IndexPage: React.FC = () => {
 
   return (
       <Root>
-        <Image src="/images/logo.jpeg" alt="Logo"/>
+        <Image src="https://d2cxdjqe8pmpe4.cloudfront.net/test/logo.jpeg" alt="Logo"/>
         <SearchBox
             value={searchText}
             onChange={(event) => setSearchText(event.target.value)}
