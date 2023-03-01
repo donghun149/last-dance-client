@@ -55,20 +55,20 @@ const Navigation: React.FC = () => {
   return (
       <NavigationContainer className={isHidden ? 'hidden' : ''}>
         <NavigationLeft>
-          <Logo onClick={goHome}>
-            <LogoSvg style={{width: "30px", height: "30px"}}/>
-          </Logo>
+          {/*<Logo onClick={goHome}>*/}
+          {/*  <LogoSvg style={{width: "30px", height: "30px"}}/>*/}
+          {/*</Logo>*/}
         </NavigationLeft>
         <NavigationRight>
           {isLogin ?
               (
                   <LogoutButton onClick={handleLogout}>
-                    로그아웃
+                    Logout
                   </LogoutButton>
               ) :
               (
                   <LoginButton onClick={handleClick}>
-                    로그인
+                    Login
                   </LoginButton>
               )
           }
@@ -119,9 +119,10 @@ const NavigationRight = styled.div`
 `
 
 const LoginButton = styled.button`
+  text-align: center;
   cursor: pointer;
   padding: 4px 16px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: normal;
   border-radius: 4px;
   border: 30px;
@@ -130,13 +131,14 @@ const LoginButton = styled.button`
   color: rgb(255, 255, 255);
   transition: all 0.125s ease-in 0s;
   box-sizing: border-box;
-  line-height: 18px;
+  line-height: 25px;
 `
 
 const LogoutButton = styled.button`
+  text-align: center;
   cursor: pointer;
   padding: 4px 16px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: normal;
   border-radius: 4px;
   border: 30px;
@@ -145,7 +147,7 @@ const LogoutButton = styled.button`
   color: rgb(255, 255, 255);
   transition: all 0.125s ease-in 0s;
   box-sizing: border-box;
-  line-height: 18px;
+  line-height: 25px;
 `
 
 export default Navigation;

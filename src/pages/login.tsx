@@ -49,7 +49,7 @@ const LoginPage: React.FC<Props> = () => {
             <LoginButton/>
           </form>
           <RegisterDescription>
-            아직 회원이 아니신가요? <RegisterButton onClick={goRegister}>회원가입</RegisterButton>
+            <RegisterButton onClick={goRegister}>회원가입</RegisterButton>
           </RegisterDescription>
         </Content>
       </Root>
@@ -65,7 +65,6 @@ const RegisterDescription = styled.div`
 `
 
 const RegisterButton = styled.span`
-  font-weight: bold;
   color: black;
   cursor: pointer;
 `
@@ -132,7 +131,7 @@ const Input = styled.input`
 const InputFormWrap = styled.div`
   width: 300px;
   margin: 0 auto;
-  padding-top: 30px;
+  margin-top: 80px;
   text-align: center;
 
   @media (max-width: 400px) {

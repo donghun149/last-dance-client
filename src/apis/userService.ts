@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const LOCAL_API_HOST = 'http://localhost:8080'
+const REAL_API_HOST = 'http://ec2-3-37-147-215.ap-northeast-2.compute.amazonaws.com:8080'
 const httpClient = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: LOCAL_API_HOST,
   headers: {
     'Content-type': 'application/json',
   },

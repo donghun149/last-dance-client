@@ -27,11 +27,15 @@ const HumanPage = ({human}: InferGetServerSidePropsType<GetServerSideProps>) => 
     userService.getIsOwn({
       email: human.email, token: (tokenFromLocalStorage || '').toString()
     }).then(isOwn => {
-      if(isOwn) setIsOwn(true)
+      if (isOwn) setIsOwn(true)
     }).catch(error => {
       console.log(error)
     })
   }, [isRender])
+
+  const handleEdit = () => {
+    router.push(`/humans/${human.nickname}/edit`)
+  }
 
   return (
       <Root>
@@ -40,17 +44,24 @@ const HumanPage = ({human}: InferGetServerSidePropsType<GetServerSideProps>) => 
           <NickName>
             {query.id}
           </NickName>
-          <Name>
-            류동훈
-          </Name>
-          <Description>
-            서비스 개발이 취미인 평범한 서버 개발자입니다.
-          </Description>
-          {
-              isOwn && (
-                  <button>Edit</button>
-              )
-          }
+          <ProfileHeader>
+            <ProfileHeaderLeft>
+              <Name>
+                류동훈
+              </Name>
+              <Description>
+                서비스 개발이 취미인 평범한 서버 개발자입니다.
+              </Description>
+            </ProfileHeaderLeft>
+            <ProfileHeaderRight>
+              {
+                  isOwn && (
+                      <EditButton onClick={handleEdit}>Edit</EditButton>
+                  )
+              }
+            </ProfileHeaderRight>
+
+          </ProfileHeader>
           <HumanContent/>
           <HumanContent/>
           <HumanContent/>
@@ -95,6 +106,18 @@ const ProfileImage = styled.img`
   }
 `;
 
+const ProfileHeader = styled.div`
+  border-bottom: 1px gainsboro solid;
+  display: flex;
+  justify-content: space-between;
+`
+
+const ProfileHeaderLeft = styled.div`
+
+`
+const ProfileHeaderRight = styled.div`
+`
+
 const NickName = styled.div`
   font-size: 35px;
   font-weight: bold;
@@ -105,10 +128,25 @@ const Name = styled.div`
   padding: 3px 0;
 `
 const Description = styled.div`
-  width: 100%;
-  border-bottom: 1px gainsboro solid;
   padding: 3px 0 12px 0;
   font-size: 12px;
 `
+
+const EditButton = styled.button`
+  text-align: center;
+  cursor: pointer;
+  padding: 4px 16px;
+  font-size: 14px;
+  font-weight: normal;
+  border-radius: 4px;
+  border: 30px;
+  word-break: keep-all;
+  background: rgb(33, 37, 41);
+  color: rgb(255, 255, 255);
+  transition: all 0.125s ease-in 0s;
+  box-sizing: border-box;
+  line-height: 25px;
+`
+
 
 export default HumanPage

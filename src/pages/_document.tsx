@@ -44,7 +44,7 @@ export default class CustomDocument extends Document {
             <title>HumanZIP</title>
             <meta
                 name="viewport"
-                content="initial-scale=1, width=device-width, minimum-scale=1.0, maximum-scale=1.0"
+                content="width=device-width, initial-scale=1, width=device-width, minimum-scale=1.0, maximum-scale=1.0,  user-scalable=no"
             />
           </Head>
           <body>

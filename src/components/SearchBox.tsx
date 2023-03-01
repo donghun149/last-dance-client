@@ -9,9 +9,10 @@ const SearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
-  box-shadow: rgb(0 0 0 / 10%) 0px 4px 16px 0px;
-  padding: 1rem;
+  border: 1px solid gainsboro;
   border-radius: 4px;
+  padding: 2px;
+  box-sizing: border-box;
 
   @media (max-width: 500px) {
     width: 80%;
@@ -20,13 +21,16 @@ const SearchContainer = styled.div`
 
 const SearchIcon = styled(Search)`
   margin-right: 1rem;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 10px;
   padding-left: calc(1em + 1rem);
   border: none;
+  box-sizing: border-box;
 `;
 
 
@@ -43,7 +47,7 @@ const SearchBox: React.FC<SearchBoxProps> = (
   return <SearchContainer>
     <Input
         type="text"
-        placeholder="Search"
+        placeholder="닉네임 혹은 이름을 검색하세요"
         value={value}
         onChange={onChange}
         onKeyDown={onKeyDown}

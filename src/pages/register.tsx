@@ -140,7 +140,7 @@ const Input = styled.input`
 const InputFormWrap = styled.div`
   width: 300px;
   margin: 0 auto;
-  padding-top: 30px;
+  margin-top: 80px;
   text-align: center;
 
   @media (max-width: 400px) {

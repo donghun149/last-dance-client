@@ -17,6 +17,14 @@ export const darkTheme: DefaultTheme = {
 };
 
 export const GlobalStyle = createGlobalStyle`
+  html, body, #__next {
+    height: 100%;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
   ${reset}
   :focus {
     outline: none;
@@ -27,12 +35,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 11px;
+    font-size: 15px;
     -webkit-text-size-adjust: none;
-    font-family: -apple-system, BlinkMacSystemFont, helvetica, Apple SD Gothic Neo, sans-serif;
-
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
+    
     ${media.tablet} {
-      font-size: 10px;
+      font-size: 11px;
     }
 
     -ms-overflow-style: none;
