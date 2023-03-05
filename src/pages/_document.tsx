@@ -46,6 +46,11 @@ export default class CustomDocument extends Document {
                 name="viewport"
                 content="width=device-width, initial-scale=1, width=device-width, minimum-scale=1.0, maximum-scale=1.0,  user-scalable=no"
             />
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css"
+                  integrity="sha512-n5zPz6LZB0QV1eraRj4OOxRbsV7a12eAGfFcrJ4bBFxxAwwYDp542z5M0w24tKPEhKk2QzjjIpR5hpOjJtGGoA=="
+                  crossOrigin="anonymous" referrerPolicy="no-referrer"
+            />
           </Head>
           <body>
           <Main/>

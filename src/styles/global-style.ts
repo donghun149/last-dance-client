@@ -24,6 +24,12 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  .w-md-editor-text-pre > code,
+  .w-md-editor-text-input {
+    font-size: 18px !important;
+    line-height: 27px !important;
+  }
   
   ${reset}
   :focus {
@@ -39,9 +45,9 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-text-size-adjust: none;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
     
-    ${media.tablet} {
-      font-size: 11px;
-    }
+    // ${media.tablet} {
+    //   font-size: 11px;
+    // }
 
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -80,6 +86,20 @@ export const GlobalStyle = createGlobalStyle`
 
     ${media.mobile} {
       display: block;
+    }
+  }
+
+  .markdown-body {
+    box-sizing: border-box;
+    //min-width: 200px;
+    //max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+  }
+
+  @media (max-width: 767px) {
+    .markdown-body {
+      padding: 15px;
     }
   }
 `;

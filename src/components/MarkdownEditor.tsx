@@ -4,22 +4,21 @@ import dynamic from "next/dynamic";
 interface MarkdownEditorProps {
   value: string | undefined;
   onChange: (value: string | undefined) => void;
-  style: React.CSSProperties | undefined;
+  // style: React.CSSProperties | undefined;
 }
 
 const MarkdownEditor: React.FC<MarkdownEditorProps> =
-    ({value, onChange, style}) => {
+    ({value, onChange}) => {
       return (
-          <div style={style}>
-            <MarkdownEditorWrapper
-                style={{flex: 1}}
-                value={value}
-                onChange={onChange}
-                preview='edit'
-                highlightEnable={true}
-                enableScroll={true}
-            />
-          </div>
+          <MarkdownEditorWrapper
+              value={value}
+              onChange={onChange}
+              preview='live'
+              highlightEnable={true}
+              enableScroll={true}
+              // @ts-ignore
+              height="85vh"
+          />
       )
     }
 

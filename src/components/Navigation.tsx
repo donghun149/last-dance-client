@@ -16,16 +16,16 @@ const Navigation: React.FC = () => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter()
 
-  useEffect(() => {
-    let prevScrollPos = window.pageYOffset;
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setIsHidden(currentScrollPos > prevScrollPos);
-      prevScrollPos = currentScrollPos;
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   let prevScrollPos = window.pageYOffset;
+  //   const handleScroll = () => {
+  //     const currentScrollPos = window.pageYOffset;
+  //     setIsHidden(currentScrollPos > prevScrollPos);
+  //     prevScrollPos = currentScrollPos;
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   useEffect(() => {
     const token = getTokenFromLocalStorage()
@@ -91,6 +91,7 @@ const NavigationContainer = styled.div`
   border-bottom: 1px solid gainsboro;
   transition: transform 0.3s ease-in-out;
   transform: translateY(0);
+  z-index: 10;
 
   &.hidden {
     transform: translateY(-100%);
@@ -111,7 +112,7 @@ const Logo = styled.div`
 `
 
 const NavigationRight = styled.div`
-  padding-right: 100px;
+  padding-right: 30px;
 
   @media (max-width: 500px) {
     padding-right: 30px;

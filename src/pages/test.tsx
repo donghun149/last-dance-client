@@ -7,6 +7,7 @@ import {useRecoilState} from "recoil";
 import {tokenState} from "../states/states";
 import MarkdownEditor from "../components/MarkdownEditor";
 import HexagonalIcon from '../../public/svg/hexagonal.svg';
+import styled from "styled-components";
 
 interface Props {
 }
@@ -34,7 +35,7 @@ const MobileAdaptivePage: React.FC<Props> = () => {
           minHeight: "100vh",
           maxHeight: "100vh"
         }}>
-          <div style={{overflow: "auto",width: "100%"}}>
+          <div style={{overflow: "auto", width: "100%"}}>
             <NewsFeed/>
           </div>
           <div
@@ -47,9 +48,6 @@ const MobileAdaptivePage: React.FC<Props> = () => {
             <MarkdownEditor
                 value={content}
                 onChange={setContent}
-                style={{
-                  width: "100%",
-                }}
             />
           </div>
         </div>
